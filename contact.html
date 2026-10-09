@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact &amp; Membership — AIDIS United States</title>
+<meta name="description" content="Contact the U.S. chapter of AIDIS and apply for membership.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body data-page="contact">
+
+<header id="site-header"></header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <span class="section-eyebrow reveal">Get in Touch</span>
+    <h1 class="reveal d1">Contact &amp; Membership</h1>
+    <p class="reveal d2">Questions, membership, partnerships or press — reach the chapter and we'll route it to the right person.</p>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="inner">
+    <div class="contact-grid">
+      <form class="form-card reveal" id="contactForm" novalidate>
+        <div class="field">
+          <label for="cf-name">Full name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="cf-topic">Topic</label>
+          <select id="cf-topic" name="topic">
+            <option>General inquiry</option>
+            <option>Membership</option>
+            <option>Events &amp; conferences</option>
+            <option>Technical committees</option>
+            <option>Partnership</option>
+            <option>Press</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send message</button>
+        <p class="form-note">This opens your email client and sends to iaasee.usc@gmail.com. No data is stored on this site.</p>
+      </form>
+
+      <aside class="contact-aside reveal d1">
+        <div class="contact-line">
+          <div class="ci"><svg width="18" height="18" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:iaasee.usc@gmail.com">iaasee.usc@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div class="ci"><svg width="18" height="18" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+          <div>
+            <strong>International</strong>
+            <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Interamericana</a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div class="ci"><svg width="18" height="18" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+          <div>
+            <strong>Events</strong>
+            <a href="events.html">Upcoming events &amp; congresses</a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div class="ci"><svg width="18" height="18" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+          <div>
+            <strong>Membership</strong>
+            <span class="muted">Join a network across 24 national sections.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer"></footer>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.omo/
+.playwright-mcp/
+*.log
+.DS_Store
+Thumbs.db

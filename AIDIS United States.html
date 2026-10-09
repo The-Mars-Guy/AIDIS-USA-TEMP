@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIDIS United States — Sanitary & Environmental Engineering</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --accent: #4e8221;          /* primary green */
+  --accent-dark: #0081af;     /* secondary teal */
+  --accent-deep: #2f7d32;     /* dark green */
+  --accent-glow: rgba(78,130,33,0.18);
+  --text-dark: #292929;
+  --text-secondary: #555555;
+  --white: #ffffff;
+  --off-white: #f5f6f7;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-700: #334155;
+  --gray-900: #0f172a;
+  --fh: 'Poppins', sans-serif;
+  --fb: 'Montserrat', sans-serif;
+  --r16: 16px; --r12: 12px; --r8: 8px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+img { display: block; }
+a { text-decoration: none; color: inherit; }
+h1, h2, h3, p { text-wrap: pretty; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem;
+  transition: background 0.4s, backdrop-filter 0.4s, padding 0.3s;
+}
+nav.scrolled {
+  background: var(--off-white);
+  backdrop-filter: blur(16px);
+  padding: 0.25rem 3rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+nav.scrolled .nav-brand img { width: 56px; height: 56px; }
+.nav-brand { display: flex; align-items: center; gap: 0.7rem; }
+.nav-brand img { width: 150px; height: 150px; object-fit: contain; transition: width 0.3s, height 0.3s; }
+  .nav-brand-text { color: var(--text-dark); font-family: var(--fh); font-weight: 700; font-size: 1.05rem; line-height: 1.15; }
+.nav-brand-text small { display: block; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.55; font-family: var(--fb); }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-join {
+  background: var(--accent); color: white !important; font-weight: 600 !important;
+  padding: 0.5rem 1.2rem; border-radius: var(--r8);
+  transition: background 0.2s, transform 0.15s !important;
+}
+.nav-join:hover { background: var(--accent-dark) !important; transform: translateY(-1px); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh; background: var(--off-white);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 6rem 2rem 8rem; text-align: center;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.orb { position: absolute; border-radius: 50%; pointer-events: none; }
+.orb-1 { width: 700px; height: 700px; top: -220px; right: -180px; background: radial-gradient(circle, rgba(78,130,33,0.16) 0%, transparent 65%); animation: orb-drift 12s ease-in-out infinite; }
+.orb-2 { width: 500px; height: 500px; bottom: -120px; left: -120px; background: radial-gradient(circle, rgba(0,129,175,0.14) 0%, transparent 65%); animation: orb-drift 16s ease-in-out infinite reverse; animation-delay: -5s; }
+.orb-3 { width: 260px; height: 260px; top: 35%; left: 25%; background: radial-gradient(circle, rgba(78,130,33,0.18) 0%, transparent 65%); animation: orb-drift 9s ease-in-out infinite; animation-delay: -3s; }
+@keyframes orb-drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(20px,-30px) scale(1.07); } }
+
+.hero-badge {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--accent); border: 1px solid var(--accent-dark);
+  color: var(--white); padding: 0.4rem 1rem; border-radius: 100px;
+  font-size: 0.73rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+.hero-badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 2.4s ease-in-out infinite; }
+@keyframes blink { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.3; transform:scale(0.6); } }
+
+  .hero h1 {
+    position: relative; z-index: 2; font-family: var(--fh); font-weight: 800;
+    font-size: clamp(3rem, 7.5vw, 6.25rem); color: var(--text-dark); line-height: 1.04;
+    max-width: 960px; margin-bottom: 1.5rem; text-wrap: pretty;
+  }
+.hero h1 .accent { color: var(--accent); }
+
+.hero-sub {
+  position: relative; z-index: 2;
+  font-size: clamp(1rem, 2vw, 1.175rem); color: var(--text-secondary);
+  max-width: 560px; line-height: 1.75; margin-bottom: 2.75rem;
+}
+.hero-ctas { position: relative; z-index: 2; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.875rem 1.875rem; border-radius: var(--r8); font-family: var(--fb); font-size: 0.9375rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(78,130,33,0.30); }
+  .btn-ghost {
+    background: transparent; color: var(--accent); border: 1.5px solid var(--accent);
+  }
+  .btn-ghost:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--text-secondary); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(41,41,41,0.35), transparent); animation: scroll-line 2s ease-in-out infinite; }
+@keyframes scroll-line { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+.hero-wave { position: absolute; bottom: -2px; left: 0; right: 0; line-height: 0; }
+
+/* ── STATS ── */
+.stats-band { background: var(--off-white); border-bottom: 1px solid var(--gray-200); }
+.stats-wrapper { max-width: 1100px; margin: 0 auto; padding: 2.5rem 2rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.stat { text-align: center; padding: 1.25rem 1rem; }
+.stat-num { font-family: var(--fh); font-size: 3rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.stat-num sup { font-size: 1.5rem; color: var(--accent); }
+.stat-label { margin-top: 0.4rem; font-size: 0.78rem; color: var(--gray-500); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── ABOUT ── */
+.about { padding: 7rem 2rem; }
+.about-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.about-visual {
+  position: relative; border-radius: 20px; overflow: hidden;
+  background: linear-gradient(145deg, #1f5a2b 0%, #0d6a8a 60%, #12331a 100%);
+  min-height: 460px; display: flex; align-items: center; justify-content: center;
+}
+.about-visual-art { padding: 3rem; width: 100%; }
+.about-visual-art svg { width: 100%; height: auto; }
+.about-float {
+  position: absolute; bottom: 1.75rem; left: 1.75rem;
+  background: white; border-radius: 14px; padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.875rem;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.14);
+}
+.about-float-icon { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.about-float-icon svg { color: white; }
+.about-float strong { display: block; font-family: var(--fh); font-size: 0.9375rem; font-weight: 700; color: var(--text-dark); }
+.about-float span { font-size: 0.75rem; color: var(--gray-500); }
+.section-eyebrow { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+.section-h { font-family: var(--fh); font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 800; color: var(--text-dark); line-height: 1.15; margin-bottom: 1.25rem; text-wrap: pretty; }
+.about-text p { font-size: 1.0625rem; line-height: 1.8; color: var(--gray-700); margin-bottom: 1.125rem; }
+.about-tags { margin-top: 2rem; }
+.about-tags p { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 0.6rem; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tag {
+  font-size: 0.78rem; font-weight: 500; color: var(--gray-700);
+  background: var(--gray-100); border: 1px solid var(--gray-200);
+  padding: 0.3rem 0.75rem; border-radius: 6px;
+}
+
+/* ── MISSION / VISION ── */
+.mv-section { background: var(--off-white); padding: 7rem 2rem; }
+.mv-inner { max-width: 1200px; margin: 0 auto; }
+.mv-header { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; margin-bottom: 3.5rem; }
+.mv-section .section-eyebrow { color: var(--accent); }
+.mv-section .section-h { color: var(--text-dark); margin-bottom: 0; }
+.mv-intro { font-size: 1.0625rem; color: var(--text-secondary); line-height: 1.75; }
+.mv-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.mv-card {
+  background: var(--white); border: 1px solid var(--gray-200);
+  border-radius: var(--r16); padding: 2.5rem;
+  transition: background 0.25s, border-color 0.25s;
+}
+.mv-card:hover { background: var(--white); border-color: var(--accent); }
+  .mv-icon {
+    width: 52px; height: 52px; background: rgba(78,130,33,0.12); border: 1px solid rgba(78,130,33,0.28); border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;
+  }
+.mv-card h3 { font-family: var(--fh); font-size: 1.4rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.875rem; }
+.mv-card p { font-size: 0.9875rem; color: var(--gray-700); line-height: 1.8; }
+.mv-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-200); border-radius: var(--r12); overflow: hidden; }
+.mv-pillar { background: var(--white); padding: 1.75rem 2rem; }
+.mv-pillar-n { font-family: var(--fh); font-size: 2.25rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.mv-pillar h4 { font-family: var(--fh); font-size: 0.9375rem; font-weight: 700; color: var(--text-dark); margin: 0.5rem 0 0.4rem; }
+.mv-pillar p { font-size: 0.8125rem; color: var(--gray-500); line-height: 1.6; }
+
+/* ── EVENTS ── */
+.events { padding: 7rem 2rem; background: var(--off-white); }
+.events-inner { max-width: 1200px; margin: 0 auto; }
+.events-head { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.75rem; }
+.events-head .section-h { margin-bottom: 0; }
+.view-all { font-size: 0.875rem; font-weight: 600; color: var(--accent); display: flex; align-items: center; gap: 0.3rem; transition: gap 0.2s; }
+.view-all:hover { gap: 0.6rem; }
+.events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.event-card {
+  background: white; border-radius: var(--r16); overflow: hidden;
+  border: 1px solid var(--gray-200); transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
+}
+.event-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(11,30,61,0.1); }
+.event-header { padding: 1.75rem 1.75rem 1.25rem; background: var(--gray-100); position: relative; }
+.event-chip { display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.65rem; border-radius: 5px; margin-bottom: 1rem; color: white; }
+.chip-conf { background: var(--accent); }
+.chip-workshop { background: var(--accent-dark); }
+.chip-webinar { background: var(--accent-deep); }
+.event-date-num { font-family: var(--fh); font-size: 2.25rem; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.event-date-mo { font-size: 0.8125rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 0.2rem; }
+.event-body { padding: 1.5rem 1.75rem; }
+.event-body h3 { font-family: var(--fh); font-size: 1.05rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem; line-height: 1.4; }
+.event-body p { font-size: 0.84rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 1rem; }
+.event-loc { display: flex; align-items: center; gap: 0.375rem; font-size: 0.8rem; color: var(--gray-500); }
+
+/* ── LEADERSHIP ── */
+.leadership { padding: 7rem 2rem; }
+.leadership-inner { max-width: 1200px; margin: 0 auto; }
+.board-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.board-card {
+  background: white; border: 1px solid var(--gray-200); border-radius: var(--r16);
+  padding: 2rem 1.5rem; text-align: center;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.board-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(11,30,61,0.09); border-color: var(--gray-300); }
+.board-avatar {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--fh); font-size: 1.5rem; font-weight: 800; color: white;
+}
+.board-card h3 { font-family: var(--fh); font-size: 0.9375rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.25rem; }
+.board-role { font-size: 0.7rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.375rem; }
+.board-org { font-size: 0.78rem; color: var(--gray-500); line-height: 1.4; }
+.board-card .board-bio-hint { margin-top: 0.875rem; font-size: 0.72rem; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 0.3rem; }
+
+/* ── BOARD MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(7,21,41,0.72); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: auto; }
+.modal {
+  background: white; border-radius: 20px; max-width: 560px; width: 100%;
+  max-height: 85vh; overflow-y: auto; padding: 2.5rem; position: relative;
+  transform: translateY(16px) scale(0.98); transition: transform 0.25s;
+}
+.modal-overlay.open .modal { transform: none; }
+.modal-close {
+  position: absolute; top: 1.1rem; right: 1.1rem; width: 34px; height: 34px;
+  border-radius: 50%; border: none; background: var(--gray-100); color: var(--gray-700);
+  font-size: 1.05rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.modal-close:hover { background: var(--accent); color: var(--white); }
+.modal-head { display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; }
+.modal-avatar {
+  width: 84px; height: 84px; border-radius: 50%; flex-shrink: 0;
+  background-size: cover; background-position: center;
+}
+.modal-head h3 { font-family: var(--fh); font-size: 1.3rem; font-weight: 700; color: var(--text-dark); line-height: 1.25; }
+.modal-role { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; }
+.modal-org { font-size: 0.82rem; color: var(--gray-500); margin-top: 0.3rem; line-height: 1.5; }
+.modal-bio { font-size: 0.9375rem; color: var(--gray-700); line-height: 1.8; }
+
+/* ── JOIN CTA ── */
+.join-cta {
+  background: linear-gradient(140deg, #12331a 0%, #1f5a2b 45%, #0d6a8a 100%);
+  padding: 8rem 2rem; text-align: center; position: relative; overflow: hidden;
+}
+.join-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 60%, rgba(159,214,190,0.15) 0%, transparent 70%);
+}
+.join-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.join-cta .section-eyebrow { color: #a7d98a; }
+.join-cta .section-h { color: white; font-size: clamp(2.25rem, 4vw, 3.25rem); margin-bottom: 1rem; }
+.join-cta p { color: rgba(255,255,255,0.6); font-size: 1.075rem; line-height: 1.75; margin-bottom: 2.5rem; }
+.join-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── FOOTER ── */
+footer { background: var(--gray-900); color: rgba(255,255,255,0.65); padding: 5rem 2rem 2.5rem; }
+.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3.5rem; }
+.footer-brand-logo { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+.footer-brand-logo img { width: 100px; height: 100px; object-fit: contain; }
+.footer-brand-logo span { font-family: var(--fh); font-weight: 700; font-size: 1rem; color: white; line-height: 1.15; }
+.footer-brand-logo small { display: block; font-size: 0.62rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.5; font-family: var(--fb); }
+.footer-desc { font-size: 0.84rem; line-height: 1.75; color: rgba(255,255,255,0.4); max-width: 280px; margin-bottom: 1.5rem; }
+.footer-socials { display: flex; gap: 0.6rem; }
+.soc-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.soc-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+.footer-col h4 { font-family: var(--fh); font-size: 0.8rem; font-weight: 700; color: white; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+.footer-col a { display: block; font-size: 0.84rem; color: rgba(255,255,255,0.45); margin-bottom: 0.6rem; transition: color 0.2s; }
+.footer-col a:hover { color: white; }
+.footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+
+/* ── REVEAL ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s cubic-bezier(.22,1,.36,1), transform 0.7s cubic-bezier(.22,1,.36,1); }
+.reveal.in { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.1s; } .d2 { transition-delay: 0.2s; } .d3 { transition-delay: 0.3s; } .d4 { transition-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <img src="IMG-20260725-WA0003.jpg" alt="AIDIS Logo">
+  </a>
+  <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#mission">Mission</a>
+      <a href="#events">Events</a>
+      <a href="#board">Leadership</a>
+      <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Internacional</a>
+      <a href="https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/" target="_blank" rel="noopener">Capítulos</a>
+      <a href="https://aidisnet.org/category/noticias/" target="_blank" rel="noopener">Noticias</a>
+      <a href="https://aidisnet.org/events/" target="_blank" rel="noopener">Calendario</a>
+      <a href="#join" class="nav-join">Join Us</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="hero-badge"><div class="hero-badge-dot"></div>Now active in the United States</div>
+
+  <h1>Engineering America's<br><span class="accent">Water Future.</span></h1>
+
+  <p class="hero-sub">
+    AIDIS United States unites sanitary and environmental engineers, researchers, and public health professionals to advance sustainable water infrastructure across the nation.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#join" class="btn btn-primary">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Become a Member
+    </a>
+    <a href="#events" class="btn btn-ghost">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      Upcoming Events
+    </a>
+  </div>
+
+  <div class="hero-scroll"><span>Scroll</span><div class="scroll-line"></div></div>
+
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 88" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,44 C240,88 480,0 720,44 C960,88 1200,16 1440,44 L1440,88 L0,88 Z" fill="#f5f6f7"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="stats-band">
+  <div class="stats-wrapper">
+    <div class="stat reveal">
+      <div class="stat-num"><sup>+</sup><span data-target="76" data-suffix="">76</span></div>
+      <div class="stat-label">Years of AIDIS Global Excellence</div>
+    </div>
+    <div class="stat reveal d1">
+      <div class="stat-num"><span data-target="32" data-suffix="">32</span><sup>+</sup></div>
+      <div class="stat-label">US States Represented</div>
+    </div>
+    <div class="stat reveal d2">
+      <div class="stat-num"><span data-target="18" data-suffix="">18</span><sup>+</sup></div>
+      <div class="stat-label">Member Countries in AIDIS</div>
+    </div>
+    <div class="stat reveal d3">
+      <div class="stat-num"><span data-target="12" data-suffix="">12</span><sup>+</sup></div>
+      <div class="stat-label">Annual Events &amp; Conferences</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual reveal">
+      <div class="about-visual-art">
+        <!-- Abstract water/infrastructure illustration -->
+        <svg viewBox="0 0 360 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Concentric arcs - water ripples -->
+          <circle cx="180" cy="200" r="120" stroke="rgba(159,214,190,0.12)" stroke-width="1.5"/>
+          <circle cx="180" cy="200" r="90" stroke="rgba(159,214,190,0.18)" stroke-width="1.5"/>
+          <circle cx="180" cy="200" r="60" stroke="rgba(159,214,190,0.25)" stroke-width="1.5"/>
+          <circle cx="180" cy="200" r="30" stroke="rgba(159,214,190,0.35)" stroke-width="1.5"/>
+          <!-- Pipeline network -->
+          <path d="M60,80 H160 V140" stroke="rgba(159,214,190,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M300,60 H200 V140" stroke="rgba(159,214,190,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M60,80 V160 H120 V200" stroke="rgba(159,214,190,0.35)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M300,60 V170 H240 V200" stroke="rgba(159,214,190,0.35)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Nodes -->
+          <circle cx="60" cy="80" r="6" fill="#9fd6be" opacity="0.8"/>
+          <circle cx="300" cy="60" r="6" fill="#9fd6be" opacity="0.8"/>
+          <circle cx="120" cy="200" r="6" fill="#9fd6be" opacity="0.6"/>
+          <circle cx="240" cy="200" r="6" fill="#9fd6be" opacity="0.6"/>
+          <circle cx="180" cy="200" r="10" fill="#9fd6be"/>
+          <circle cx="180" cy="200" r="6" fill="white"/>
+          <!-- Drop shape -->
+          <path d="M180,110 C180,110 210,150 210,168 C210,184.6 196.6,198 180,198 C163.4,198 150,184.6 150,168 C150,150 180,110 180,110 Z" fill="rgba(159,214,190,0.2)" stroke="rgba(159,214,190,0.5)" stroke-width="1.5"/>
+          <!-- Animated pulse circles -->
+          <circle cx="180" cy="200" r="18" stroke="#9fd6be" stroke-width="0.75" opacity="0.5">
+            <animate attributeName="r" values="18;40;18" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+      <div class="about-float">
+        <div class="about-float-icon">
+          <svg width="18" height="18" fill="none" stroke="white" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+        </div>
+        <div>
+          <strong>Clean Water Advocacy</strong>
+          <span>Serving communities nationwide</span>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-eyebrow reveal">Who We Are</div>
+      <h2 class="section-h reveal d1">The Bridge Between Science and Safe Water</h2>
+      <div class="reveal d2">
+        <p>AIDIS United States is the U.S. chapter of the Inter-American Association of Sanitary and Environmental Engineering — a hemispheric network with over seven decades of technical leadership across 18 countries.</p>
+        <p>We bring together engineers, scientists, public health experts, and policymakers to address America's most pressing water and sanitation challenges: aging infrastructure, equitable access, climate resilience, and regulatory innovation.</p>
+        <p>As the standard-bearer for the Americas, our U.S. chapter is positioned to lead — with world-class research, rigorous technical exchange, and a commitment to solutions that reach every community.</p>
+      </div>
+      <div class="about-tags reveal d3">
+        <p>Areas of Focus</p>
+        <div class="tag-row">
+          <span class="tag">Drinking Water Quality</span>
+          <span class="tag">Wastewater Treatment</span>
+          <span class="tag">Stormwater Management</span>
+          <span class="tag">Environmental Health</span>
+          <span class="tag">Water Equity</span>
+          <span class="tag">Infrastructure Resilience</span>
+          <span class="tag">PFAS &amp; Emerging Contaminants</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MISSION / VISION ── -->
+<section class="mv-section" id="mission">
+  <div class="mv-inner">
+    <div class="mv-header">
+      <div>
+        <div class="section-eyebrow reveal">Our Purpose</div>
+        <h2 class="section-h reveal d1">Mission &amp; Vision</h2>
+      </div>
+      <p class="mv-intro reveal d2">Grounded in science. Driven by equity. Built for the long-term health of people and planet.</p>
+    </div>
+    <div class="mv-cards">
+      <div class="mv-card reveal">
+        <div class="mv-icon">
+          <svg width="24" height="24" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>
+        </div>
+        <h3>Our Mission</h3>
+        <p>To advance the science, technology, and practice of sanitary and environmental engineering in the United States — fostering technical excellence, professional development, and collaborative problem-solving to protect public health and the environment.</p>
+      </div>
+      <div class="mv-card reveal d1">
+        <div class="mv-icon">
+          <svg width="24" height="24" fill="none" stroke="#4e8221" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>Our Vision</h3>
+        <p>A United States where every person has access to clean water and a healthy environment — powered by world-class engineering, equitable policy, and cross-sector collaboration that sets the global standard for the Americas.</p>
+      </div>
+    </div>
+    <div class="mv-pillars">
+      <div class="mv-pillar reveal">
+        <div class="mv-pillar-n">01</div>
+        <h4>Technical Excellence</h4>
+        <p>Rigorous engineering standards and peer-reviewed research that drive real-world impact.</p>
+      </div>
+      <div class="mv-pillar reveal d1">
+        <div class="mv-pillar-n">02</div>
+        <h4>Hemispheric Collaboration</h4>
+        <p>Connecting U.S. professionals with a 18-country network across the Americas.</p>
+      </div>
+      <div class="mv-pillar reveal d2">
+        <div class="mv-pillar-n">03</div>
+        <h4>Equity &amp; Access</h4>
+        <p>Ensuring safe water and sanitation reaches underserved communities across the nation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EVENTS ── -->
+<section class="events" id="events">
+  <div class="events-inner">
+    <div class="events-head">
+      <div>
+        <div class="section-eyebrow reveal">What's Coming Up</div>
+        <h2 class="section-h reveal d1">Events &amp; Conferences</h2>
+      </div>
+      <a href="https://aidisnet.org/events/" target="_blank" rel="noopener" class="view-all reveal">View all events <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="events-grid">
+      <div class="event-card reveal">
+        <div class="event-header">
+          <div class="event-chip chip-conf">Annual Conference</div>
+          <div class="event-date-num">18</div>
+          <div class="event-date-mo">September 2025</div>
+        </div>
+        <div class="event-body">
+          <h3>AIDIS USA Annual National Congress — Water &amp; Climate Resilience</h3>
+          <p>A flagship gathering of engineers, researchers, and policymakers tackling America's most urgent water infrastructure challenges.</p>
+          <div class="event-loc">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Washington, D.C.
+          </div>
+        </div>
+      </div>
+      <div class="event-card reveal d1">
+        <div class="event-header">
+          <div class="event-chip chip-workshop">Workshop</div>
+          <div class="event-date-num">07</div>
+          <div class="event-date-mo">November 2025</div>
+        </div>
+        <div class="event-body">
+          <h3>PFAS Remediation: Field Techniques &amp; Regulatory Frameworks</h3>
+          <p>Hands-on technical workshop covering the latest PFAS treatment technologies, EPA guidance, and compliance strategies for practitioners.</p>
+          <div class="event-loc">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Houston, TX
+          </div>
+        </div>
+      </div>
+      <div class="event-card reveal d2">
+        <div class="event-header">
+          <div class="event-chip chip-webinar">Webinar Series</div>
+          <div class="event-date-num">14</div>
+          <div class="event-date-mo">January 2026</div>
+        </div>
+        <div class="event-body">
+          <h3>Smart Water Networks: Digital Twins &amp; Predictive Analytics</h3>
+          <p>Monthly webinar series exploring how AI and sensor networks are transforming water system management and leak detection at scale.</p>
+          <div class="event-loc">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Virtual — Online
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOARD ── -->
+<section class="leadership" id="board">
+  <div class="leadership-inner">
+    <div class="section-eyebrow reveal">The Team</div>
+    <h2 class="section-h reveal d1">Board of Directors</h2>
+    <div class="board-grid">
+      <div class="board-card reveal" data-bio="cardenas">
+        <div class="board-avatar" style="background-image: url('image1.jpeg'); background-size: cover; background-position: center;"></div>
+        <div class="board-role">President</div>
+        <h3>Dr. Cristian Cardenas-Lailhacar</h3>
+        <div class="board-org">Instructional Associate Professor, University of Florida</div>
+        <span class="board-bio-hint">View bio <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+      <div class="board-card reveal d1" data-bio="oyanedel">
+        <div class="board-avatar" style="background-image: url('image2.jpeg'); background-size: cover; background-position: center;"></div>
+        <div class="board-role">Vice-President &amp; Treasurer</div>
+        <h3>Dr. Vinka Oyanedel-Craver</h3>
+        <div class="board-org">Professor, University of Rhode Island</div>
+        <span class="board-bio-hint">View bio <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+      <div class="board-card reveal d2" data-bio="goldszier">
+        <div class="board-avatar" style="background-image: url('image3.jpeg'); background-size: cover; background-position: center;"></div>
+        <div class="board-role">Vice-President &amp; Secretary</div>
+        <h3>Eng. Barbara Goldszier</h3>
+        <div class="board-org">Civil Engineer, Water Infrastructure Specialist</div>
+        <span class="board-bio-hint">View bio <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BOARD MODAL ── -->
+<div class="modal-overlay" id="bioModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="modal-avatar" id="modalAvatar"></div>
+      <div>
+        <h3 id="modalName"></h3>
+        <div class="modal-role" id="modalRole"></div>
+        <div class="modal-org" id="modalOrg"></div>
+      </div>
+    </div>
+    <p class="modal-bio" id="modalBio"></p>
+  </div>
+</div>
+
+<!-- ── JOIN CTA ── -->
+<section class="join-cta" id="join">
+  <div class="join-inner">
+    <div class="section-eyebrow reveal">Membership</div>
+    <h2 class="section-h reveal d1">Join AIDIS United States</h2>
+    <p class="reveal d2">Become part of a hemispheric network of engineers and environmental professionals committed to advancing clean water, sanitation, and sustainable infrastructure for all Americans.</p>
+    <div class="join-btns">
+      <a href="mailto:iaasee.usc@gmail.com" class="btn btn-primary reveal d2">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Get in Touch
+      </a>
+      <a href="#about" class="btn btn-ghost reveal d3">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-logo">
+    <img src="IMG-20260725-WA0003.jpg" alt="AIDIS Logo">
+        <span>AIDIS<small>United States</small></span>
+      </div>
+      <p class="footer-desc">The U.S. Chapter of the Inter-American Association of Sanitary and Environmental Engineering. Advancing water infrastructure and public health across the Americas.</p>
+      <div class="footer-socials">
+        <a href="#" class="soc-btn" aria-label="LinkedIn">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="soc-btn" aria-label="Twitter">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        </a>
+        <a href="mailto:iaasee.usc@gmail.com" class="soc-btn" aria-label="Email">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <a href="#about">About Us</a>
+      <a href="#mission">Mission &amp; Vision</a>
+      <a href="#board">Board of Directors</a>
+      <a href="#">Publications</a>
+    </div>
+    <div class="footer-col">
+      <h4>Participate</h4>
+      <a href="#events">Events</a>
+      <a href="#join">Membership</a>
+      <a href="#">Technical Committees</a>
+      <a href="#">Volunteer</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:iaasee.usc@gmail.com">iaasee.usc@gmail.com</a>
+      <a href="#">Press Inquiries</a>
+      <a href="#">Partner With Us</a>
+      <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Internacional</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 AIDIS United States. All rights reserved.</span>
+    <span>Part of the AIDIS International Network</span>
+  </div>
+</footer>
+
+<script>
+// Nav on scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Reveal on scroll
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Count-up animation for stats
+function countUp(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  const dur = 1800;
+  const start = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+const statsObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-target]').forEach(countUp);
+      statsObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const sw = document.querySelector('.stats-wrapper');
+if (sw) statsObs.observe(sw);
+
+// Board bio modal
+const bios = {
+  cardenas: {
+    name: 'Dr. Cristian Cardenas-Lailhacar',
+    role: 'President',
+    org: 'Instructional Associate Professor, University of Florida',
+    img: 'image1.jpeg',
+    bio: 'Dr. Cristian Cardenas-Lailhacar is an Instructional Associate Professor in the Department of Mechanical and Aerospace Engineering at the University of Florida (UF) Herbert Wertheim College of Engineering, and an Affiliate Faculty in the UF Center for Latin American Studies. He serves as Assistant Director of both the UF Industrial Training and Assessment Center and the UF Mobile Energy Laboratory, for which he has completed over 420 assessments in the US and Latin America, including wastewater treatment plants (WWTP) in the State of Florida. He developed a study on the current energy use of these facilities that was used for performance improvement by the State. He has over 40 peer-reviewed publications, written 360 reports for the US-DOE, co-authored 3 books, and 4 chapters in books.'
+  },
+  oyanedel: {
+    name: 'Dr. Vinka Oyanedel-Craver',
+    role: 'Vice-President & Treasurer',
+    org: 'Professor, University of Rhode Island',
+    img: 'image2.jpeg',
+    bio: 'Dr. Vinka Oyanedel-Craver is a Professor at the Department of Civil and Environmental Engineering at the University of Rhode Island. Her current research interests are in emerging contaminants of drinking water, wastewater, and stormwater treatment, as well as the development of novel water technologies. Her current research focus is on environmental nanotechnology, specifically on the behavior and application of nanomaterials in different ecological compartments and their use as antimicrobial compounds in point of use water/wastewater treatment in rural developing communities. Her research team has authored more than 45 peer-reviewed publications.'
+  },
+  goldszier: {
+    name: 'Eng. Barbara Goldszier',
+    role: 'Vice-President & Secretary',
+    org: 'Civil Engineer, Water Infrastructure Specialist',
+    img: 'image3.jpeg',
+    bio: 'Engineer Barbara Goldszier is a Civil Engineer specializing in Water Engineering, graduated from the University of Buenos Aires. She has over 10 years of professional experience in water infrastructure projects, including work for Agua y Saneamientos Argentinos (AySA), the public water and sanitation utility serving the Buenos Aires metropolitan area.'
+  }
+};
+
+const modal = document.getElementById('bioModal');
+const modalAvatar = document.getElementById('modalAvatar');
+const modalName = document.getElementById('modalName');
+const modalRole = document.getElementById('modalRole');
+const modalOrg = document.getElementById('modalOrg');
+const modalBio = document.getElementById('modalBio');
+
+function openBio(key) {
+  const b = bios[key];
+  if (!b) return;
+  modalAvatar.style.backgroundImage = `url('${b.img}')`;
+  modalName.textContent = b.name;
+  modalRole.textContent = b.role;
+  modalOrg.textContent = b.org;
+  modalBio.textContent = b.bio;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBio() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.board-card[data-bio]').forEach(card => {
+  card.addEventListener('click', () => openBio(card.dataset.bio));
+});
+document.getElementById('modalClose').addEventListener('click', closeBio);
+modal.addEventListener('click', e => { if (e.target === modal) closeBio(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBio(); });
+</script>
+</body>
+</html>

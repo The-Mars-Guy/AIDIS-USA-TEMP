@@ -1,0 +1,261 @@
+// Shared chrome for every page: header (with dropdown nav), footer, and the
+// board-bio modal. Pages declare `data-page="about|history|..."` on <body>.
+
+const NAV_LINKS = [
+  { label: 'Home', href: 'index.html' },
+  {
+    label: 'About',
+    href: 'about.html',
+    children: [
+      { label: 'About Us', href: 'about.html' },
+      { label: 'History', href: 'history.html' },
+      { label: 'Mission & Vision', href: 'about.html#mission' },
+    ],
+  },
+  { label: 'Events', href: 'events.html' },
+  {
+    label: 'Leadership',
+    href: 'leadership.html',
+    children: [
+      { label: 'Board of Directors', href: 'leadership.html' },
+      { label: 'Technical Committees', href: 'about.html#focus' },
+    ],
+  },
+  {
+    label: 'International',
+    href: 'https://aidisnet.org/aidis/',
+    external: true,
+    children: [
+      { label: 'AIDIS Interamericana', href: 'https://aidisnet.org/aidis/', external: true },
+      { label: 'Capítulos', href: 'https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/', external: true },
+      { label: 'Noticias', href: 'https://aidisnet.org/category/noticias/', external: true },
+      { label: 'Calendario', href: 'https://aidisnet.org/events/', external: true },
+    ],
+  },
+];
+
+function isActive(page, href) {
+  if (!href || href.startsWith('http')) return false;
+  const clean = href.split('#')[0].replace(/^\//, '');
+  return clean === `${page}.html`;
+}
+
+function navItemHtml(item, page) {
+  const active = isActive(page, item.href);
+  const hasChildren = Array.isArray(item.children) && item.children.length;
+  if (!hasChildren) {
+    const ext = item.external ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${item.href}"${ext}${active ? ' class="active"' : ''}>${item.label}</a>`;
+  }
+  const ext = item.external ? ' target="_blank" rel="noopener"' : '';
+  const kids = item.children
+    .map((c) => {
+      const ce = c.external ? ' target="_blank" rel="noopener"' : '';
+      return `<a href="${c.href}"${ce}>${c.label}</a>`;
+    })
+    .join('');
+  return `<div class="nav-item has-children${active ? ' active' : ''}">
+        <a href="${item.href}"${ext} class="nav-parent${active ? ' active' : ''}">${item.label}<svg class="caret" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav-dropdown">${kids}</div>
+      </div>`;
+}
+
+function headerHtml(page) {
+  const links = NAV_LINKS.map((i) => navItemHtml(i, page)).join('\n      ');
+  return `<nav id="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="IMG-20260725-WA0003.jpg" alt="IAASEE United States Chapter">
+  </a>
+  <button id="navToggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navLinks">
+      ${links}
+      <a href="contact.html" class="nav-join">Join Us</a>
+  </div>
+</nav>`;
+}
+
+function footerHtml() {
+  return `<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand-logo">
+        <img src="IMG-20260725-WA0003.jpg" alt="IAASEE United States Chapter">
+        <span>IAASEE<small>United States Chapter</small></span>
+      </div>
+      <p class="footer-desc">The U.S. Chapter of the Inter-American Association of Sanitary and Environmental Engineering. Advancing water infrastructure and public health across the Americas.</p>
+      <div class="footer-socials">
+        <a href="#" class="soc-btn" aria-label="LinkedIn">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" class="soc-btn" aria-label="Twitter">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        </a>
+        <a href="mailto:iaasee.usc@gmail.com" class="soc-btn" aria-label="Email">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Organization</h4>
+      <a href="about.html">About Us</a>
+      <a href="history.html">Our History</a>
+      <a href="about.html#mission">Mission &amp; Vision</a>
+      <a href="leadership.html">Leadership</a>
+    </div>
+    <div class="footer-col">
+      <h4>Participate</h4>
+      <a href="events.html">Events</a>
+      <a href="contact.html">Membership</a>
+      <a href="about.html#focus">Technical Committees</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:iaasee.usc@gmail.com">iaasee.usc@gmail.com</a>
+      <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Internacional</a>
+      <a href="https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/" target="_blank" rel="noopener">Capítulos</a>
+      <a href="https://aidisnet.org/category/noticias/" target="_blank" rel="noopener">Noticias</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 IAASEE United States Chapter. All rights reserved.</span>
+    <span>Part of the AIDIS International Network</span>
+  </div>
+</footer>`;
+}
+
+const MODAL_HTML = `<div class="modal-overlay" id="bioModal">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-head">
+      <div class="modal-avatar" id="modalAvatar"></div>
+      <div>
+        <h3 id="modalName"></h3>
+        <div class="modal-role" id="modalRole"></div>
+        <div class="modal-org" id="modalOrg"></div>
+      </div>
+    </div>
+    <p class="modal-bio" id="modalBio"></p>
+  </div>
+</div>`;
+
+const BOARD_BIOS = {
+  cardenas: {
+    name: 'Dr. Cristian Cardenas-Lailhacar',
+    role: 'President',
+    org: 'Instructional Associate Professor, University of Florida',
+    img: 'image1.jpeg',
+    bio: 'Dr. Cristian Cardenas-Lailhacar is an Instructional Associate Professor in the Department of Mechanical and Aerospace Engineering at the University of Florida (UF) Herbert Wertheim College of Engineering, and an Affiliate Faculty in the UF Center for Latin American Studies. He serves as Assistant Director of both the UF Industrial Training and Assessment Center and the UF Mobile Energy Laboratory, for which he has completed over 420 assessments in the US and Latin America, including wastewater treatment plants (WWTP) in the State of Florida. He developed a study on the current energy use of these facilities that was used for performance improvement by the State. He has over 40 peer-reviewed publications, written 360 reports for the US-DOE, co-authored 3 books, and 4 chapters in books.',
+  },
+  oyanedel: {
+    name: 'Dr. Vinka Oyanedel-Craver',
+    role: 'Vice-President & Treasurer',
+    org: 'Professor, University of Rhode Island',
+    img: 'image2.jpeg',
+    bio: 'Dr. Vinka Oyanedel-Craver is a Professor at the Department of Civil and Environmental Engineering at the University of Rhode Island. Her current research interests are in emerging contaminants of drinking water, wastewater, and stormwater treatment, as well as the development of novel water technologies. Her current research focus is on environmental nanotechnology, specifically on the behavior and application of nanomaterials in different ecological compartments and their use as antimicrobial compounds in point of use water/wastewater treatment in rural developing communities. Her research team has authored more than 45 peer-reviewed publications.',
+  },
+  goldszier: {
+    name: 'Eng. Barbara Goldszier',
+    role: 'Vice-President & Secretary',
+    org: 'Civil Engineer, Water Infrastructure Specialist',
+    img: 'image3.jpeg',
+    bio: 'Engineer Barbara Goldszier is a Civil Engineer specializing in Water Engineering, graduated from the University of Buenos Aires. She has over 10 years of professional experience in water infrastructure projects, including work for Agua y Saneamientos Argentinos (AySA), the public water and sanitation utility serving the Buenos Aires metropolitan area.',
+  },
+};
+
+/** Inject header + footer (and modal) into placeholders, then wire chrome behaviour. */
+export function mountLayout() {
+  const page = (document.body.dataset.page || 'index').toLowerCase();
+  const header = document.getElementById('site-header');
+  const footer = document.getElementById('site-footer');
+  if (header) header.innerHTML = headerHtml(page);
+  if (footer) footer.innerHTML = footerHtml();
+
+  if (!document.getElementById('bioModal')) {
+    const wrap = document.createElement('div');
+    wrap.innerHTML = MODAL_HTML;
+    document.body.appendChild(wrap.firstElementChild);
+  }
+
+  setupNav();
+  setupBioModal();
+}
+
+/* ── nav behaviour ── */
+function setupNav() {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
+
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const toggle = document.getElementById('navToggle');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+  }
+
+  // Hover-intent: keep the dropdown open through the gap while the pointer
+  // travels from the nav item down into the menu.
+  document.querySelectorAll('.nav-item.has-children').forEach((item) => {
+    let timer;
+    const open = () => { clearTimeout(timer); item.classList.add('open'); };
+    const close = () => { timer = setTimeout(() => item.classList.remove('open'), 180); };
+    item.addEventListener('mouseenter', open);
+    item.addEventListener('mouseleave', close);
+    item.addEventListener('focusin', open);
+    item.addEventListener('focusout', close);
+  });
+
+  // Keyboard/tap friendliness for dropdown parents on touch: first tap opens.
+  document.querySelectorAll('.nav-item.has-children > .nav-parent').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (window.matchMedia('(hover: none)').matches) {
+        const item = a.parentElement;
+        if (!item.classList.contains('open')) {
+          e.preventDefault();
+          item.classList.add('open');
+        }
+      }
+    });
+  });
+}
+
+/* ── bio modal ── */
+function setupBioModal() {
+  const modal = document.getElementById('bioModal');
+  if (!modal) return;
+  const avatar = document.getElementById('modalAvatar');
+  const name = document.getElementById('modalName');
+  const role = document.getElementById('modalRole');
+  const org = document.getElementById('modalOrg');
+  const bio = document.getElementById('modalBio');
+
+  const open = (key) => {
+    const b = BOARD_BIOS[key];
+    if (!b) return;
+    avatar.style.backgroundImage = `url('${b.img}')`;
+    name.textContent = b.name;
+    role.textContent = b.role;
+    org.textContent = b.org;
+    bio.textContent = b.bio;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  const close = () => {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  document.querySelectorAll('.board-card[data-bio]').forEach((card) => {
+    card.addEventListener('click', () => open(card.dataset.bio));
+  });
+  document.getElementById('modalClose')?.addEventListener('click', close);
+  modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+}
