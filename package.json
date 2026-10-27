@@ -3,12 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "AIDIS United States chapter website (Vite). Events auto-sync from the AIDIS Interamericana calendar at build time.",
+  "description": "IAASEE United States Chapter website (Vite). Curated English events; the raw AIDIS calendar feed is kept as a reference file.",
   "scripts": {
     "sync:events": "node scripts/sync-events.mjs",
-    "predev": "npm run sync:events",
     "dev": "vite",
-    "prebuild": "npm run sync:events",
     "build": "vite build",
     "preview": "vite preview"
   },

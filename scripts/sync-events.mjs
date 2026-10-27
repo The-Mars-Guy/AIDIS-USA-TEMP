@@ -1,13 +1,14 @@
-// Syncs AIDIS event data into src/data/events.json at build/dev time.
-// Source: https://aidisnet.org/events/?ical=1  (WordPress "The Events Calendar" iCal feed)
+// Syncs the AIDIS Inter-American event feed into src/data/aidis-feed.json for reference.
+// The public site renders curated English events from src/data/events.json.
 // Never fails the build: on any error it keeps the existing data file.
+
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
-const OUT = join(ROOT, 'src', 'data', 'events.json');
+const OUT = join(ROOT, 'src', 'data', 'aidis-feed.json');
 const SOURCE = 'https://aidisnet.org/events/?ical=1';
 
 /** Unfold iCal folded lines: a leading space/tab continues the previous line. */
@@ -122,7 +123,7 @@ async function main() {
     source: SOURCE,
     events: upcoming,
   });
-  console.log(`[sync-events] wrote ${upcoming.length} upcoming event(s) to src/data/events.json`);
+  console.log(`[sync-events] wrote ${upcoming.length} upcoming event(s) to src/data/aidis-feed.json`);
 }
 
 main();
