@@ -1,6 +1,8 @@
 // Shared chrome for every page: header (with dropdown nav), footer, and the
 // board-bio modal. Pages declare `data-page="about|history|..."` on <body>.
 
+import Offcanvas from 'bootstrap/js/dist/offcanvas';
+
 const NAV_LINKS = [
   { label: 'Home', href: 'index.html' },
   {
@@ -60,20 +62,63 @@ function navItemHtml(item, page) {
       </div>`;
 }
 
+function mobileMenuHtml(page) {
+  const mobileLink = (label, href, external = false) => {
+    const active = isActive(page, href) ? ' active' : '';
+    const ext = external ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${href}"${ext} class="mobile-link${active}">${label}</a>`;
+  };
+  const childLink = (child) => {
+    const active = child.href === `${page}.html` ? ' class="active"' : '';
+    const ext = child.external ? ' target="_blank" rel="noopener"' : '';
+    return `<a href="${child.href}"${ext}${active}>${child.label}</a>`;
+  };
+  const group = (label, children) => `<details class="mobile-group">
+          <summary>${label}<svg class="caret" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="mobile-sub">${children.map(childLink).join('')}</div>
+        </details>`;
+
+  const about = NAV_LINKS.find((item) => item.label === 'About');
+  const leadership = NAV_LINKS.find((item) => item.label === 'Leadership');
+  const interAmerican = NAV_LINKS.find((item) => item.label === 'Inter-American');
+
+  return `<div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-label="Mobile navigation">
+  <div class="offcanvas-header">
+    <a href="index.html" class="mobile-brand">
+      <img src="iaasee-logo.png" alt="IAASEE United States Chapter">
+    </a>
+    <button type="button" class="mobile-close" data-bs-dismiss="offcanvas" aria-label="Close menu">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="offcanvas-body">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      ${mobileLink('Home', 'index.html')}
+      ${group('About', about.children)}
+      ${mobileLink('Events', 'events.html')}
+      ${group('Leadership', leadership.children)}
+      ${group('Inter-American', interAmerican.children)}
+      <a href="contact.html" class="mobile-link mobile-cta${isActive(page, 'contact.html') ? ' active' : ''}">Contact Us</a>
+    </nav>
+  </div>
+</div>`;
+}
+
 function headerHtml(page) {
   const links = NAV_LINKS.map((i) => navItemHtml(i, page)).join('\n      ');
   return `<nav id="nav">
   <a href="index.html" class="nav-brand">
     <img src="iaasee-logo.png" alt="IAASEE — Inter-American Association of Sanitary and Environmental Engineering, United States Chapter">
   </a>
-  <button id="navToggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+  <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu" aria-haspopup="dialog">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="navLinks">
       ${links}
       <a href="contact.html" class="nav-join">Contact Us</a>
   </div>
-</nav>`;
+</nav>
+${mobileMenuHtml(page)}`;
 }
 
 function footerHtml() {
@@ -190,10 +235,30 @@ function setupNav() {
   window.addEventListener('scroll', onScroll, { passive: true });
 
   const toggle = document.getElementById('navToggle');
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', String(open));
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (toggle && mobileMenu) {
+    const drawer = Offcanvas.getOrCreateInstance(mobileMenu);
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      drawer.toggle(toggle);
+    });
+    mobileMenu.addEventListener('show.bs.offcanvas', () => {
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+    });
+    mobileMenu.addEventListener('hide.bs.offcanvas', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+    });
+    mobileMenu.addEventListener('hidden.bs.offcanvas', () => {
+      if (window.innerWidth <= 1120) toggle.focus();
+    });
+    // External links open in a new tab; close the drawer so the page behind is usable.
+    mobileMenu.querySelectorAll('a[target="_blank"]').forEach((link) => {
+      link.addEventListener('click', () => drawer.hide());
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1120) drawer.hide();
     });
   }
 
@@ -209,18 +274,6 @@ function setupNav() {
     item.addEventListener('focusout', close);
   });
 
-  // Keyboard/tap friendliness for dropdown parents on touch: first tap opens.
-  document.querySelectorAll('.nav-item.has-children > .nav-parent').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      if (window.matchMedia('(hover: none)').matches) {
-        const item = a.parentElement;
-        if (!item.classList.contains('open')) {
-          e.preventDefault();
-          item.classList.add('open');
-        }
-      }
-    });
-  });
 }
 
 /* ── bio modal ── */
