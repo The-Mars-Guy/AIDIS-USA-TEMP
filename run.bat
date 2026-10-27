@@ -1,10 +1,10 @@
 @echo off
 setlocal EnableExtensions
-title AIDIS United States - Dev Server
+title IAASEE United States - Dev Server
 cd /d "%~dp0"
 
 echo ==========================================================
-echo   AIDIS United States - temporary local runner
+echo   IAASEE United States - temporary local runner
 echo ==========================================================
 echo.
 
@@ -93,7 +93,7 @@ if not exist "node_modules\" (
 echo.
 
 REM ---------------------------------------------------------
-REM  6) Start the dev server (also syncs events from AIDIS)
+REM  6) Start the dev server
 REM ---------------------------------------------------------
 echo ==========================================================
 echo   Starting the local site...
