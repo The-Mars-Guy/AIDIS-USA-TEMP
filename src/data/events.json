@@ -1,14 +1,15 @@
 {
-  "syncedAt": "2026-10-09T14:58:31.561Z",
-  "source": "https://aidisnet.org/events/?ical=1",
+  "updatedAt": "2026-10-26",
+  "source": "https://aidisnet.org/event/40-congreso-interamericano-de-ingenieria-sanitaria-y-ambiental/",
   "events": [
     {
-      "title": "40° Congreso Interamericano de Ingeniería Sanitaria y Ambiental",
+      "title": "40th Inter-American Congress of Sanitary and Environmental Engineering",
       "start": "2026-11-22",
-      "end": "2026-11-27",
-      "description": "El 40° Congreso Interamericano de AIDIS marcará un nuevo hito para la ingeniería sanitaria y ambiental en las Américas La Asociación Interamericana de Ingeniería Sanitaria y Ambiental (AIDIS) anuncia la realización del 40° Congreso Interamericano de Ingeniería Sanitaria y Ambiental, un evento emblemático que volverá a reunir a la comunidad técnica del continente en un espacio de alto nivel para el diálogo, la cooperación y la proyección del futuro del sector.  Con más de siete décadas de historia, AIDIS ha sido protagonista del desarrollo del saneamiento y la gestión ambiental en las Américas. Desde su creación en 1948, la asociación ha impulsado el intercambio de conocimientos, la formación continua y la articulación regional, consolidando a sus congresos interamericanos como el principal foro técnico del sector.  La cuadragésima edición del Congreso se presenta como una instancia estratégica para reflexionar sobre los desafíos actuales y emergentes del agua, el saneamiento y el ambiente, en un contexto global marcado por el cambio climático, la urbanización acelerada y la necesidad de soluciones sostenibles e innovadoras.  El evento se llevará a cabo del 22 al 25 de noviembre de 2026, en la Ciudad de Guatemala, Guatemala, y contará con la participación de autoridades, especialistas, académicos, jóvenes profesionales y representantes del sector privado, quienes compartirán experiencias, avances tecnológicos y propuestas para fortalecer la gestión ambiental en la región.  El 40° Congreso Interamericano de AIDIS reafirma su vocación integradora y su compromiso con el desarrollo técnico y humano, proyectándose como un espacio clave para construir respuestas conjuntas a los desafíos ambientales de las próximas décadas.   + INFORMACION E INSCRIPCIONES",
+      "end": "2026-11-25",
+      "description": "The flagship technical forum of AIDIS returns to Guatemala City, bringing together engineers, researchers, officials, utilities, and young professionals from across the Americas.",
       "url": "https://aidisnet.org/event/40-congreso-interamericano-de-ingenieria-sanitaria-y-ambiental/",
-      "location": ""
+      "location": "Guatemala City, Guatemala",
+      "chip": "Inter-American Congress"
     }
   ]
 }

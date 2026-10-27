@@ -1,35 +1,15 @@
 import eventsData from './data/events.json';
 
-// ── Fallback events (shown when the AIDIS feed is empty or unavailable) ──
+// ── Fallback events (shown when the curated event list is empty) ──
 const FALLBACK = [
   {
-    chip: 'Annual Conference',
+    chip: 'Chapter Events',
     chipClass: 'chip-conf',
-    day: '18',
-    monthYear: 'September 2025',
-    title: 'AIDIS USA Annual National Congress — Water & Climate Resilience',
-    desc: "A flagship gathering of engineers, researchers, and policymakers tackling America's most urgent water infrastructure challenges.",
-    loc: 'Washington, D.C.',
-    url: '',
-  },
-  {
-    chip: 'Workshop',
-    chipClass: 'chip-workshop',
-    day: '07',
-    monthYear: 'November 2025',
-    title: 'PFAS Remediation: Field Techniques & Regulatory Frameworks',
-    desc: 'Hands-on technical workshop covering the latest PFAS treatment technologies, EPA guidance, and compliance strategies for practitioners.',
-    loc: 'Houston, TX',
-    url: '',
-  },
-  {
-    chip: 'Webinar Series',
-    chipClass: 'chip-webinar',
-    day: '14',
-    monthYear: 'January 2026',
-    title: 'Smart Water Networks: Digital Twins & Predictive Analytics',
-    desc: 'Monthly webinar series exploring how AI and sensor networks are transforming water system management and leak detection at scale.',
-    loc: 'Virtual — Online',
+    day: '—',
+    monthYear: 'Coming Soon',
+    title: 'IAASEE United States Chapter Events',
+    desc: 'New chapter events are being scheduled. Contact the chapter to be notified about workshops, webinars, and the next Inter-American Congress.',
+    loc: 'United States',
     url: '',
   },
 ];
@@ -59,18 +39,18 @@ function truncate(s, n) {
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-/** Normalise one feed event (from src/data/events.json) into card fields. */
+/** Normalise one curated event (from src/data/events.json) into card fields. */
 function fromFeed(ev) {
   const d = ev.start ? new Date(ev.start) : null;
   const valid = d && !Number.isNaN(d.getTime());
   const desc = truncate(stripHtml(ev.description), 200);
   return {
-    chip: ev.chip || 'AIDIS Event',
+    chip: ev.chip || 'IAASEE Event',
     chipClass: 'chip-conf',
     day: valid ? String(d.getUTCDate()).padStart(2, '0') : '—',
     monthYear: valid ? `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}` : '',
     title: ev.title || 'Untitled event',
-    desc: desc || 'Details available on the AIDIS calendar.',
+    desc: desc || 'Details available on the AIDIS Inter-American calendar.',
     loc: ev.location || '',
     url: ev.url || '',
   };
@@ -98,7 +78,7 @@ function cardHtml(e) {
       </div>`;
 }
 
-/** Render the Events section from the synced feed, falling back to static cards. */
+/** Render the Events section from the curated list, falling back to a static card. */
 export function renderEvents() {
   const grid = document.getElementById('eventsGrid');
   if (!grid) return;
@@ -112,7 +92,7 @@ export function renderEvents() {
 
   grid.innerHTML = items.slice(0, limit).map(cardHtml).join('');
 
-  // Feed-driven cards are injected after main.js set up its reveal observer,
+  // Event cards are injected after main.js sets up its reveal observer,
   // so trigger their entrance transition on the next frame.
   const cards = [...grid.querySelectorAll('.reveal')];
   requestAnimationFrame(() => cards.forEach((c) => c.classList.add('in')));
