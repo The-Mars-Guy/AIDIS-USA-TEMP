@@ -22,14 +22,14 @@ const NAV_LINKS = [
     ],
   },
   {
-    label: 'International',
+    label: 'Inter-American',
     href: 'https://aidisnet.org/aidis/',
     external: true,
     children: [
-      { label: 'AIDIS Interamericana', href: 'https://aidisnet.org/aidis/', external: true },
-      { label: 'Capítulos', href: 'https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/', external: true },
-      { label: 'Noticias', href: 'https://aidisnet.org/category/noticias/', external: true },
-      { label: 'Calendario', href: 'https://aidisnet.org/events/', external: true },
+      { label: 'AIDIS Inter-American', href: 'https://aidisnet.org/aidis/', external: true },
+      { label: 'National Sections', href: 'https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/', external: true },
+      { label: 'News', href: 'https://aidisnet.org/category/noticias/', external: true },
+      { label: 'Calendar', href: 'https://aidisnet.org/events/', external: true },
     ],
   },
 ];
@@ -64,14 +64,14 @@ function headerHtml(page) {
   const links = NAV_LINKS.map((i) => navItemHtml(i, page)).join('\n      ');
   return `<nav id="nav">
   <a href="index.html" class="nav-brand">
-    <img src="IMG-20260725-WA0003.jpg" alt="IAASEE United States Chapter">
+    <img src="iaasee-logo.png" alt="IAASEE — Inter-American Association of Sanitary and Environmental Engineering, United States Chapter">
   </a>
   <button id="navToggle" class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="navLinks">
       ${links}
-      <a href="contact.html" class="nav-join">Join Us</a>
+      <a href="contact.html" class="nav-join">Contact Us</a>
   </div>
 </nav>`;
 }
@@ -81,19 +81,15 @@ function footerHtml() {
   <div class="footer-grid">
     <div>
       <div class="footer-brand-logo">
-        <img src="IMG-20260725-WA0003.jpg" alt="IAASEE United States Chapter">
-        <span>IAASEE<small>United States Chapter</small></span>
+        <img src="iaasee-logo-white.png" alt="IAASEE — Inter-American Association of Sanitary and Environmental Engineering, United States Chapter">
       </div>
-      <p class="footer-desc">The U.S. Chapter of the Inter-American Association of Sanitary and Environmental Engineering. Advancing water infrastructure and public health across the Americas.</p>
+      <p class="footer-desc">The U.S. Chapter of AIDIS — the Inter-American Association of Sanitary and Environmental Engineering. Connecting American water professionals to a 24-section network across the Americas.</p>
       <div class="footer-socials">
-        <a href="#" class="soc-btn" aria-label="LinkedIn">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        </a>
-        <a href="#" class="soc-btn" aria-label="Twitter">
-          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+        <a href="https://www.linkedin.com" class="soc-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
         </a>
         <a href="mailto:iaasee.usc@gmail.com" class="soc-btn" aria-label="Email">
-          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
         </a>
       </div>
     </div>
@@ -114,20 +110,21 @@ function footerHtml() {
     <div class="footer-col">
       <h4>Contact</h4>
       <a href="mailto:iaasee.usc@gmail.com">iaasee.usc@gmail.com</a>
-      <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Internacional</a>
-      <a href="https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/" target="_blank" rel="noopener">Capítulos</a>
-      <a href="https://aidisnet.org/category/noticias/" target="_blank" rel="noopener">Noticias</a>
+      <a href="https://aidisnet.org/aidis/" target="_blank" rel="noopener">AIDIS Inter-American</a>
+      <a href="https://aidisnet.org/secciones-nacionales-capitulos-de-aidis/" target="_blank" rel="noopener">National Sections</a>
+      <a href="https://aidisnet.org/category/noticias/" target="_blank" rel="noopener">News</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 IAASEE United States Chapter. All rights reserved.</span>
-    <span>Part of the AIDIS International Network</span>
+    <span>© 2026 IAASEE United States Chapter. All rights reserved.</span>
+    <span>A U.S. Chapter of AIDIS</span>
   </div>
 </footer>`;
 }
 
+
 const MODAL_HTML = `<div class="modal-overlay" id="bioModal">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
     <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
     <div class="modal-head">
       <div class="modal-avatar" id="modalAvatar"></div>

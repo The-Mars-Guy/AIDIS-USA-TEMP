@@ -5,9 +5,7 @@ import { renderEvents } from './events.js';
 // Inject shared header / footer / modal first so per-page features can bind to them.
 mountLayout();
 
-// Hero logo watermark (home page) — set here so the URL resolves under any base path.
-const watermark = document.querySelector('img[data-watermark]');
-if (watermark) watermark.src = new URL('../IMG-20260725-WA0003.jpg', import.meta.url).href;
+// Hero logo watermark removed
 
 // Reveal on scroll
 const revealObs = new IntersectionObserver((entries) => {
@@ -24,7 +22,7 @@ function countUp(el) {
   const tick = (now) => {
     const p = Math.min((now - start) / dur, 1);
     const ease = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(ease * target) + suffix;
+    el.textContent = Math.round(ease * target).toLocaleString('en-US') + suffix;
     if (p < 1) requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
